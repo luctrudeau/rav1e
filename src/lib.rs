@@ -192,7 +192,7 @@ pub fn write_ivf_header(output_file: &mut Write, width: usize, height: usize) {
     output_file.write_u16::<LittleEndian>(width as u16).unwrap();
     output_file.write_u16::<LittleEndian>(height as u16).unwrap();
     output_file.write_u32::<LittleEndian>(60).unwrap();
-    output_file.write_u32::<LittleEndian>(0).unwrap();
+    output_file.write_u32::<LittleEndian>(1).unwrap();
     output_file.write_u32::<LittleEndian>(0).unwrap();
     output_file.write_u32::<LittleEndian>(0).unwrap();
 }
@@ -238,8 +238,8 @@ fn write_uncompressed_header(packet: &mut Write, sequence: &Sequence, fi: &Frame
     uch.write(2,0)?; // cdef clpf damping
     uch.write(2,0)?; // cdef bits
     for _ in 0..1 {
-        uch.write(7,0)?; // cdef y strength
-        uch.write(7,0)?; // cdef uv strength
+        uch.write(6,0)?; // cdef y strength
+        uch.write(6,0)?; // cdef uv strength
     }
     uch.write_bit(false)?; // no delta q
     uch.write_bit(false)?; // tx mode select

@@ -214,7 +214,7 @@ fn write_uncompressed_header(packet: &mut Write, sequence: &Sequence, fi: &Frame
         return Ok(());
     }
     uch.write_bit(false)?; // show_existing_frame=0
-    uch.write_bit(false)?; // keyframe
+    uch.write_bit(fi.ftype != FrameType::KEY)?; // keyframe [0: Keyframe, 1: (INTER, INTRA_ONLY, S)]
     uch.write_bit(true)?; // show frame
     uch.write_bit(true)?; // error resilient
     uch.write(1,0)?; // don't use frame ids
